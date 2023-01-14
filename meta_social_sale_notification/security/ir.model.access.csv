@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access.social.proof,access_social_proof,meta_social_sale_notification.model_social_proof,,1,1,1,1
+
+access_SaleOrderInherit,access_SaleOrderInherit,model_sale_order,,1,1,1,1

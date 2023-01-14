@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="custom_sale_form_view" model="ir.ui.view">
+        <field name="name">custom.sale.form.view</field>
+        <field name="model">social.proof</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="product_id_c"/>
+                        <field name="product_tmpl_id_c"/>
+                        <field name="partner_id_c"/>
+                        <field name="address_c"/>
+                        <field name="time_c"/>
+                        <field name="image_c" widget="image" height="64"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="custom_sale_tree_view" model="ir.ui.view">
+        <field name="name">custom.sale.tree.view</field>
+        <field name="model">social.proof</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="product_id_c"/>
+                <field name="product_tmpl_id_c"/>
+                <field name="partner_id_c"/>
+                <field name="address_c"/>
+                <field name="time_c"/>
+                <field name="image_c" widget="image" height="64"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <!-- 24 Hour record flter -->
+    <record id="search_view_product" model="ir.ui.view">
+        <field name="name">search.view.product</field>
+        <field name="model">social.proof</field>
+        <field name="arch" type="xml">
+            <search>
+                <filter name="create_date" string="24 Hours Record" domain="[('create_date', '>=', context_today().strftime('%Y-%m-%d'))]"/>
+            </search>
+        </field>
+    </record>
+
+
+    <record id="action_sale_product" model="ir.actions.act_window">
+        <field name="name">Latest Sale Product</field>
+        <field name="res_model">social.proof</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="custom_sale_tree_view"/>
+    </record>
+
+    <menuitem id="latest_product_id" name="Latest Product" action="action_sale_product" parent="sale.menu_sale_config" sequence="1"/>
+
+</odoo>

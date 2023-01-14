@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="snippet_product" name="Notification">
+        <section class="custom-social-proof">
+                <div class="custom-notification">
+                    <div class="custom-notification-container" id="customerdetails">
+                        
+                    </div>
+                    <div class="custom-close"></div>
+                </div>
+        </section>
+    </template>
+    
+    <template id="place_into_bar" inherit_id="website.snippets" name="Place into bar">
+        <xpath expr="//div[@id='snippet_structure']/div[@class='o_panel_body']" position="inside">
+            <t t-snippet="meta_social_sale_notification.snippet_product" t-thumbnail="/meta_social_sale_notification/static/images/snippet_icon.png" />
+        </xpath>
+    </template>
+</odoo>
