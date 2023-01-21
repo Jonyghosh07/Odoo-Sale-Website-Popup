@@ -48,51 +48,55 @@ function fn_UpdateSocialProofData() {
   var location = (selecteddetail?.cus_loc);
   var product = (selecteddetail?.prod_name);
   var prodimg = (selecteddetail?.prod_img);
+  var produrl = (selecteddetail?.product_url);
+  
+  let purchase_time = new Date(selecteddetail?.sale_datetime);
+  let t1 = new Date().toISOString()
+  let crrnt_time = t1.substring(0, t1.length-1);
 
-  // $("#sp_customername").text(customer);
-  // $("#sp_location").text(location);
-  // $("#sp_productname").text(product);
+  let diff_as_date = (new Date(crrnt_time) - new Date(purchase_time)) / 1000; // this is a time in seconds
 
-
-
-  var purchase_time = new Date(selecteddetail?.sale_datetime);
-  var crrnt_time = new Date();
-
-  var diff_as_date = (crrnt_time.getTime() - purchase_time.getTime()) / 1000 ; // this is a time in seconds
-
-  var diff_hours = Math.floor(diff_as_date/ 60 / 60);
-  var hours = (diff_hours + " hours ago");
-  var sp_time = hours;
+  if (diff_as_date < 3600) {
+    let diff_mins = Math.floor(diff_as_date/60);
+    let mins = (diff_mins + " minutes ago")
+    sp_time = mins;
+  } else {
+    let diff_hours = Math.floor(diff_as_date / 60 / 60);
+    let hours = (diff_hours + " hours ago");
+    sp_time = hours;
+  }
   
 
 
   if (selecteddetail) {
     var sp_text = '<div class="custom-notification-image-wrapper">\
-  <img src="data:image/*;base64,'+ prodimg + '"/>\
-  </div>\
-  <div class="custom-notification-content-wrapper">\
-    <p class="custom-notification-content">\
-      <span>'+ customer + '</span> from <span>' + location + '</span> just bought <strong><span>' + product + '</span></strong>\
-      <small id="sp_time">'+ sp_time + '</small>\
-    </p>\
-  </div>';
+    <img src="data:image/*;base64,'+ prodimg + '"/>\
+    </div>\
+    <a href="'+produrl+'" target="_blank">\
+    <div class="custom-notification-content-wrapper">\
+      <p class="custom-notification-content">\
+        <span>'+ customer + '</span> from <span>' + location + '</span> just bought <strong><span>' + product + '</span></strong>\
+        <small id="sp_time">'+ sp_time + '</small>\
+      </p>\
+    </div>\
+    </a>';
     document.getElementById("customerdetails").innerHTML = sp_text;
   }
 
 }
 
 
-
-
-
 function fn_ToggleSocialProof() {
-  $(".custom-social-proof").stop().slideToggle('slow', function () {
-    // console.log("gone down")
-    fn_UpdateSocialProofData();
-  });
-  //   
-  popbackup = setTimeout(function () {
-    $(".custom-social-proof").stop().slideToggle('slow');
-    // console.log("popped up")
-  }, sp_timeout);
+  getData();
+  if (details.length > 0) {
+    $(".custom-social-proof").stop().slideToggle('slow', function () {
+      // console.log("gone down")
+      fn_UpdateSocialProofData();
+    });
+
+    popbackup = setTimeout(function () {
+      $(".custom-social-proof").stop().slideToggle('slow');
+      // console.log("popped up")
+    }, sp_timeout);
+  }
 }
