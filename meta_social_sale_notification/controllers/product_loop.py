@@ -9,11 +9,12 @@ class ProductLoop(http.Controller):
         product_list=[]
         for proof in proofs:
             product_list.append({
-                "cus_name": proof.partner_id_c.name,
+                "cus_name": proof.partner_id_c.name.split(" ")[0],
                 "cus_loc": proof.partner_id_c.state_id.name,
                 "prod_id" : proof.product_tmpl_id_c.id,
                 "prod_name": proof.product_tmpl_id_c.name,
                 "prod_img":proof.image_c.decode("utf-8") if proof.image_c else None,
-                "sale_datetime": proof.time_c,  
+                "sale_datetime": proof.time_c,
+                "product_url" : proof.product_url_c,
             })
         return json.dumps(product_list)
