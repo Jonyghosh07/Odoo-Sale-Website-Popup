@@ -19,6 +19,7 @@ class SaleOrderInherit(models.Model):
                             "address_c" : partner_id.state_id.id,
                             "time_c" : date_order,
                             "image_c" : line.product_id.image_1920,
+                            "product_url_c" : line.product_id.website_url,
                         })
                         print("social proof record created {}".format(scpf))
         
@@ -33,3 +34,4 @@ class SocialProof(models.Model):
     address_c = fields.Many2one("res.country.state", string="Address")
     time_c = fields.Char(string="Date")
     image_c = fields.Binary(string="Image")
+    product_url_c = fields.Char(string='Website URL')
